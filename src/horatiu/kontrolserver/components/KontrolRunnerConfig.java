@@ -20,5 +20,5 @@ public interface KontrolRunnerConfig {
 	/**
 	 * @return - the security prompter that will be use to prompt the user about a phone trying to access the PC
 	 */
-	public SecurityPrompter getSecurityPrompter();
+	public SecurityPrompter getPrompter();
 }

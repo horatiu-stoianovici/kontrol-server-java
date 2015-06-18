@@ -2,17 +2,37 @@ package horatiu.kontrolserver.commands;
 
 import horatiu.kontrolserver.components.Request;
 import horatiu.kontrolserver.components.Response;
+import horatiu.kontrolserver.components.Response.TcpStatusCodes;
+import horatiu.kontrolserver.controllers.MouseController;
+
+import java.awt.Point;
 
 public class MouseMoveCommand implements Command {
-
+	
+	private String currentTouchId = "";
+	private Point clientStartPoint, serverStartPoint;
+	
 	public Response handleRequest(Request request) {
-		// TODO Auto-generated method stub
-		return null;
+		int clientX = Integer.parseInt(request.getParameters().get(0)),
+		clientY = Integer.parseInt(request.getParameters().get(1));
+		
+		String uid = request.getParameters().get(2);
+		
+		if(uid != currentTouchId){
+			clientStartPoint = new Point(clientX, clientY);
+			serverStartPoint = MouseController.getCurrentMousePosition();
+			currentTouchId = uid;
+		}
+		else {
+			Point delta = new Point(clientX - clientStartPoint.x, clientY - clientStartPoint.y);
+			Point newPos = new Point(serverStartPoint.x + delta.x, serverStartPoint.y + delta.y);
+			MouseController.setMousePosition(newPos);
+		}
+		return new Response(TcpStatusCodes.Ok);
 	}
 
 	public String getCommandName() {
-		// TODO Auto-generated method stub
-		return null;
+		return "mouse-move";
 	}
 
 }

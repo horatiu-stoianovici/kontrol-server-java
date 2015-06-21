@@ -18,15 +18,20 @@ public class MouseMoveCommand implements Command {
 		
 		String uid = request.getParameters().get(2);
 		
-		if(uid != currentTouchId){
-			clientStartPoint = new Point(clientX, clientY);
-			serverStartPoint = MouseController.getCurrentMousePosition();
-			currentTouchId = uid;
+		try{
+			if(!uid.equals(currentTouchId)){
+				clientStartPoint = new Point(clientX, clientY);
+				serverStartPoint = MouseController.getCurrentMousePosition();
+				currentTouchId = uid;
+			}
+			else {
+				Point delta = new Point(clientX - clientStartPoint.x, clientY - clientStartPoint.y);
+				Point newPos = new Point(serverStartPoint.x + delta.x, serverStartPoint.y + delta.y);
+				MouseController.setMousePosition(newPos);
+			}
 		}
-		else {
-			Point delta = new Point(clientX - clientStartPoint.x, clientY - clientStartPoint.y);
-			Point newPos = new Point(serverStartPoint.x + delta.x, serverStartPoint.y + delta.y);
-			MouseController.setMousePosition(newPos);
+		catch(Exception e) {
+			return new Response(TcpStatusCodes.WrongFormat);
 		}
 		return new Response(TcpStatusCodes.Ok);
 	}

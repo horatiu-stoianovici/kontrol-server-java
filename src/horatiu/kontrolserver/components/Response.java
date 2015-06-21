@@ -6,7 +6,7 @@ import org.json.JSONWriter;
 
 public class Response {
 	private int statusCode;
-	private StringBuilder responseContent;
+	private StringBuilder responseContent = new StringBuilder();
 	
 	public int getStatusCode(){
 		return statusCode;

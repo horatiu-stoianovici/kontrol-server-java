@@ -11,7 +11,7 @@ public class LoginCommand implements Command {
 		Response response = new Response();
 		response.setStatusCode(TcpStatusCodes.Ok);
 		
-		if (SecurityManager.getInstance().isAuthorized(request.getMacAddress())){
+		if (!SecurityManager.getInstance().isAuthorized(request.getMacAddress())){
 			response.setStatusCode(TcpStatusCodes.NotAuthorized);
 		}
 		else{

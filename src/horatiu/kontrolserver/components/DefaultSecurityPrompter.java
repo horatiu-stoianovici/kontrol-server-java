@@ -8,7 +8,7 @@ public class DefaultSecurityPrompter implements SecurityPrompter {
 		System.out.printf("A user with mac address '%s' wants to access this computer. Do you want to allow this? (Y/N)", mac);
 		Scanner sc = new Scanner(System.in);
 		String a = sc.next();
-		if(a.toLowerCase() == "y"){
+		if(a.toLowerCase().equals("y")){
 			return true;
 		}
 		return false;

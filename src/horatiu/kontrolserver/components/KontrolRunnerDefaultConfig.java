@@ -3,6 +3,7 @@ package horatiu.kontrolserver.components;
 import horatiu.kontrolserver.commands.Command;
 import horatiu.kontrolserver.commands.KeyboardCommand;
 import horatiu.kontrolserver.commands.LoginCommand;
+import horatiu.kontrolserver.commands.MouseClickCommand;
 import horatiu.kontrolserver.commands.MouseMoveCommand;
 import horatiu.kontrolserver.commands.PresentationCommand;
 import horatiu.kontrolserver.commands.ScrollCommand;
@@ -28,6 +29,7 @@ public class KontrolRunnerDefaultConfig implements KontrolRunnerConfig {
 		ArrayList<Command> commands = new ArrayList<Command>();
 		commands.add(new LoginCommand());
 		commands.add(new MouseMoveCommand());
+		commands.add(new MouseClickCommand());
 		commands.add(new ScrollCommand());
 		commands.add(new KeyboardCommand());
 		commands.add(new PresentationCommand());

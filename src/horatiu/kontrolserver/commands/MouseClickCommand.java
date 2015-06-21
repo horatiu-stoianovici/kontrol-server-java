@@ -9,19 +9,24 @@ public class MouseClickCommand implements Command {
 
 	public Response handleRequest(Request request) {
 		int action = Integer.parseInt(request.getParameters().get(0));
-		switch(action){
-		case 0:
-			MouseController.leftClickDown();
-			break;
-		case 1:
-			MouseController.leftClickUp();
-			break;
-		case 2:
-			MouseController.rightClickDown();
-			break;
-		case 3:
-			MouseController.rightClickUp();
-			break;
+		try {
+			switch(action){
+			case 0:
+				MouseController.leftClickDown();
+				break;
+			case 1:
+				MouseController.leftClickUp();
+				break;
+			case 2:
+				MouseController.rightClickDown();
+				break;
+			case 3:
+				MouseController.rightClickUp();
+				break;
+			}
+		}
+		catch(Exception e){
+			return new Response(TcpStatusCodes.WrongFormat);
 		}
 		
 		Response response = new Response();

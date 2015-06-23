@@ -31,21 +31,24 @@ public class TcpServer implements Server{
 			public void run() {
 				if(!running){
 					running = true;
-					try{
-						ServerSocket welcomeSocket = new ServerSocket(8001);
-						while(true){     
-							Socket connectionSocket = welcomeSocket.accept();    
-							BufferedReader inFromClient =     
-									new BufferedReader(new InputStreamReader(connectionSocket.getInputStream())); 
-							DataOutputStream outToClient = new DataOutputStream(connectionSocket.getOutputStream());   
-							String receivedData = inFromClient.readLine();    
-							Response response = KontrolBrain.getInstance().createAndHandleRequest(receivedData);
-							outToClient.writeBytes(response.toString());  
-							connectionSocket.close();
+					while(running){
+						try{
+							ServerSocket welcomeSocket = new ServerSocket(8001);
+							while(running){ 
+								Socket connectionSocket = welcomeSocket.accept();    
+								BufferedReader inFromClient =     
+										new BufferedReader(new InputStreamReader(connectionSocket.getInputStream())); 
+								DataOutputStream outToClient = new DataOutputStream(connectionSocket.getOutputStream());   
+								String receivedData = inFromClient.readLine();    
+								Response response = KontrolBrain.getInstance().createAndHandleRequest(receivedData);
+								outToClient.writeBytes(response.toString());  
+								connectionSocket.close();
+							}
+							welcomeSocket.close();
 						}
-					}
-					catch(Exception e){
-						running = false;
+						catch(Exception e){
+							running = false;
+						}
 					}
 				}
 			}
@@ -94,7 +97,7 @@ public class TcpServer implements Server{
 						clientSocket.connect(new InetSocketAddress(clientAddress, PORT), 10000);
 
 						DataOutputStream outToServer = new DataOutputStream(clientSocket.getOutputStream());  
-						BufferedReader inFromServer =  new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+						//						BufferedReader inFromServer =  new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
 						outToServer.write((message + "\n").getBytes());
 						clientSocket.close();
 					}

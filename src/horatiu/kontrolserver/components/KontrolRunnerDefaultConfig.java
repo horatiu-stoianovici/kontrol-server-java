@@ -7,6 +7,7 @@ import horatiu.kontrolserver.commands.MouseClickCommand;
 import horatiu.kontrolserver.commands.MouseMoveCommand;
 import horatiu.kontrolserver.commands.PresentationCommand;
 import horatiu.kontrolserver.commands.ScrollCommand;
+import horatiu.kontrolserver.servers.BluetoothServer;
 import horatiu.kontrolserver.servers.Server;
 import horatiu.kontrolserver.servers.TcpServer;
 import horatiu.kontrolserver.servers.UdpServer;
@@ -21,6 +22,7 @@ public class KontrolRunnerDefaultConfig implements KontrolRunnerConfig {
 		ArrayList<Server> servers = new ArrayList<Server>();
 		servers.add(new TcpServer());
 		servers.add(new UdpServer());
+		servers.add(new BluetoothServer());
 		return servers;
 	}
 

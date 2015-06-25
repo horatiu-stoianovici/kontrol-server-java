@@ -1,5 +1,6 @@
 package horatiu.kontrolserver.servers;
 
+import horatiu.kontrolserver.Program;
 import horatiu.kontrolserver.components.KontrolBrain;
 
 import java.io.InputStream;
@@ -36,6 +37,7 @@ public class BluetoothServer implements Server {
 
 								con = 
 										(StreamConnection) service.acceptAndOpen();
+								Program.infoBluetoothClientConnected();
 //								OutputStream dos = con.openOutputStream();
 								InputStream dis = con.openInputStream();
      
@@ -61,6 +63,7 @@ public class BluetoothServer implements Server {
 								if(service != null){
 									service.close();
 								}
+								Program.infoBluetoothClientDisconnected();
 							}    
 						}
 					}

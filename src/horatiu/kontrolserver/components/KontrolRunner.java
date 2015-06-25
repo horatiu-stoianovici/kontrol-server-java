@@ -41,6 +41,7 @@ public class KontrolRunner {
 	 * @param config - the custom configuration object
 	 */
 	public void run(KontrolRunnerConfig config){
+		this.config = config;
 		for(Server server : config.getServers()){
 			server.run();
 		}
